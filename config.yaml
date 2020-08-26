@@ -1,0 +1,17 @@
+--- 
+ fontStyles:
+   01:
+     img_path: 'writing_style/01.png'
+     text: 'Above or sinking below'
+   02:
+     img_path: 'writing_style/02.png'
+     text: 'El lujo es vulgaridad'
+   03:
+     img_path: 'writing_style/03.png'
+     text: 'El lujo es vulgaridad'
+   04:
+     img_path: 'writing_style/04.png'
+     text: 'The quick brown fox jumps over the lazy dog'
+   05:
+     img_path: 'writing_style/05.png'
+     text: 'The quick brown fox jumps over the lazy dog'

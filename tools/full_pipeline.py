@@ -17,6 +17,7 @@ from pipeline.pen_style_transfer import PenStyleTransfer
 
 from datastructures.PenPosition import plotPenPositions
 
+import time
 
 
 
@@ -28,6 +29,7 @@ def main():
     parser.add_argument('input', help='The input file')
     args = parser.parse_args()
     print(args)
+    stime = time.time()
 
     inputImg = Image.open(args.input)
 
@@ -41,11 +43,18 @@ def main():
         newPenPositions = writer.write(args.text_out, args.text_in, penPositions)
 
     newPenPositions = align(newPenPositions, penPositions)
+    
+    h,w=inputImg.size
+    new_sz = (h*2,w*2)
 
-    newSkeletonBlurImg, newSkeletonImg = render_skeleton(newPenPositions, inputImg.size)
+    newSkeletonBlurImg, newSkeletonImg = render_skeleton(newPenPositions, new_sz)
 
     with PenStyleTransfer() as penStyleTransfer:
         outputImg = penStyleTransfer.transferStyle(newSkeletonBlurImg, inputImg)
+        
+    print('Done. Saving to disk')
+    outputImg.save('output.png', 'PNG')
+    print(f'Total time: {time.time()-stime} seconds')
 
     print("Done. Displaying results ...")
 

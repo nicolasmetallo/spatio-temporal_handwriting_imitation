@@ -2,6 +2,7 @@ from distutils.core import setup as __setup
 from distutils.core import Extension as __extension
 import os as __os
 import glob as __glob
+import numpy
 
 def __build():
     cwd_bup = __os.getcwd()
@@ -15,12 +16,14 @@ def __build():
         sources = __glob.glob('__src/*.c')
         #print("   Sources:", sources)
     
-        module1 = __extension('__lib',
+        module1 = __extension('__lib', include_dirs=[numpy.get_include()],
                               sources=sources)
 
         __setup(name='__lib',
                 ext_modules=[module1],
-                script_args=["build_ext", "--inplace"])
+#                 script_args=["build_ext", "--inplace"],
+                script_args=["build_ext", "--inplace", "--force"],
+               )
 
     finally:
         __os.chdir(cwd_bup)
